@@ -25,4 +25,22 @@ df.tail()
 # 특정한 열만 출력하고 싶을때
 # 한개의 열만 파악
 
-# unique값을 파악
+print(df.columns)
+# columns는 list형이
+columns = df.columns
+
+#df 컬럼명에 '_u1.' 이라는 문자열을 삭제하서 새롭게 df 컬럼명을 수정하고 싶어요
+# 자주쓰는 list comprehension기법으로 컬럼명을 수정
+print([i.replace('_u1.','') for i in columns])
+df.columns = [i.replace('_u1.','') for i in columns]
+
+# unique값을 파악, --> 모든 지역담당이 다 있는지 확인하고 싶으면
+print(df['region'].unique())
+
+#각 지역 담당별로 데이터 갯수 파악 -> query groupby
+print(df.groupby('region').size().reset_index(name = 'cnt'))
+
+# 가공결과를 엑셀파일로 저장하고 싶다.
+df2 = df.groupby('region').size().reset_index(name = 'cnt')
+df2.to_excel('df2.xlsx')
+
