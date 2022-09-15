@@ -44,3 +44,19 @@ print(df.groupby('region').size().reset_index(name = 'cnt'))
 df2 = df.groupby('region').size().reset_index(name = 'cnt')
 df2.to_excel('df2.xlsx')
 
+
+
+
+# pandas  datafrmae에서 db파일을 만들다.
+# sqlite3 package import
+import sqlite3
+
+# sqlite connection을 만들자, 지정하는 파일이 없으면 생성, 있으면 연결만 합니다. db파일의 용량제한 없습니다.
+conn = sqlite3.connect('cei.db')
+
+# 테이블에 데이터를 추가합니다. if_exists 옵션에 따라서
+# 만약 처음에 만든 컬럼과 불일치하면 data가 import안됩니다. 컬럼의 변화가 있다면 db내 테이블에 컬럼 추가 작업을 해야 한다.
+# replace -> 기존데이터 삭제, 다시 테이블 만든다.
+# append -> 끝에 데이터 추가
+# 문법 : df.to_sql(테이블명, 테이벨이 존재할 경우 선택옵션, index 번호 미포함, db connection정보)
+df.to_sql('rawdata', if_exists='append', index=False, con=conn)
