@@ -60,3 +60,16 @@ conn = sqlite3.connect('cei.db')
 # append -> 끝에 데이터 추가
 # 문법 : df.to_sql(테이블명, 테이벨이 존재할 경우 선택옵션, index 번호 미포함, db connection정보)
 df.to_sql('rawdata', if_exists='append', index=False, con=conn)
+
+
+
+# 기존 sqlite3 db에서 쿼리를 실행시키고, 결과를 가져오자
+query_string ='''
+select region, systype, round(avg(new_hdv_cfi_value),2) as 평균, round(max(new_hdv_cfi_value),2) as 최대값, round(min(new_hdv_cfi_value),2) as 최소값,
+       round(count(new_hdv_cfi_value),2) as 갯수 from rawdata group by region, systype;
+'''
+
+
+df3 = pd.read_sql(query_string, con=conn)
+
+df3.to_excel('담당별cei통계.xlsx')
