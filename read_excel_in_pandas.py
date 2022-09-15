@@ -11,7 +11,7 @@ import pandas as pd
 
 #2. ----------- reading excel file
 # FDF선벙장 EXCEL 파일을 읽어서 변수 df에 저장합니다. (df : dataframe양자)
-df = pd.read_excel('FDF선번장 연결정보.xlsx')
+df = pd.read_csv('result_1663200089476.csv')
 
 # df의 컬럼명 : 엑셒파일에서 제목행
 # 엑셀에서 제목행이라 함음 첫번째 행을 말한다.
@@ -24,8 +24,5 @@ df.tail()
 
 # 특정한 열만 출력하고 싶을때
 # 한개의 열만 파악
-print(df['서비스 사용내역'])
-print(df[['서비스 사용내역', '공사명']])
 
 # unique값을 파악
-df['서비스 사용내역']
